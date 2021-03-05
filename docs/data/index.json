@@ -1,60 +1,36 @@
-{
-   "title":"This is the title of the project",
+ {
+    "visibility": true,
+   "title":"Near-IR Spectroscopy",
    "team":[
       {
-         "name":"Team Member Name 1",
-         "email":"email@eng.pdn.ac.lk",
-         "eNumber":"E/yy/xxx",
-         "github_profile":"#",
-         "linkedin_profile":"#",
-         "researchgate_profile":"#"
+         "name":"Keshara Weerasinghe",
+         "email":"e15383@eng.pdn.ac.lk",
+         "eNumber":"E/15/383"
       },
       {
-         "name":"Team Member Name 2",
-         "email":"email@eng.pdn.ac.lk",
-         "eNumber":"E/yy/xxx",
-         "github_profile":"#",
-         "linkedin_profile":"#",
-         "researchgate_profile":"#"
+         "name":"Shamal Tennakoon",
+         "email":"e15349@eng.pdn.ac.lk",
+         "eNumber":"E/15/349"
       },
       {
-         "name":"Team Member Name 3",
-         "email":"email@eng.pdn.ac.lk",
-         "eNumber":"E/yy/xxx",
-         "github_profile":"#",
-         "linkedin_profile":"#",
-         "researchgate_profile":"#"
+         "name":"Nithya Kularatne",
+         "email":"e15188@eng.pdn.ac.lk",
+         "eNumber":"E/15/188"
       }
    ],
    "supervisors":[
       {
-         "name":"Dr. Supervisor 1",
-         "email":"email@eng.pdn.ac.lk",
-         "linkedin_profile":"",
-         "researchgate_profile":""
+         "name":"Dr. Isuru Nawinne",
+         "email":"isurunawinne@eng.pdn.ac.lk"
       },
       {
-         "name":"Dr. Supervisor 2",
-         "email":"email@eng.pdn.ac.lk",
-         "linkedin_profile":"",
-         "researchgate_profile":""
+         "name":"Prof. Roshan Ragel",
+         "email":"roshanr@eng.pdn.ac.lk"
       }
    ],
-   "publications":[
-      {
-         "title":"Paper Title",
-         "journal":"Journal or Conference Name",
-         "description":"Sample Description",
-         "url":"#"
-      }
-   ],
-   "media":[
-      {
-         "type":"youtube",
-         "url":"#"
-      }
-   ],
+
+   "description":"In this project we are using near-IR spectroscopy for better vein visualization and are developing a low-cost device high in accuracy, that is able to give a clear image of the vein map of the puncture site of the patient so that the phlebotomist can puncture the vein conveniently.",
    "tags":[
-      "Final Year Projects"
+      "Final Year Projects", "Image Processing"
    ]
 }
