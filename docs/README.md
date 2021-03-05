@@ -20,7 +20,7 @@ title: NearIR Spectroscopy
 #### Supervisors
 
 - Dr. Isuru Nawinne, [email](mailto:isurunawinne@eng.pdn.ac.lk)
-- Name, [email](mailto:roshanr@eng.pdn.ac.lk)
+- Prof. Roshan Ragel, [email](mailto:roshanr@eng.pdn.ac.lk)
 
 #### Table of content
 
