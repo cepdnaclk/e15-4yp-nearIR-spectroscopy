@@ -150,8 +150,8 @@ will start the evaluation shortly. Further improving the algorithms and fine-tun
 
 [//]: # ( NOTE: EDIT THIS LINKS WITH YOUR REPO DETAILS )
 
-- [Project Repository](https://github.com/cepdnaclk/repository-name)
-- [Project Page](https://cepdnaclk.github.io/repository-name)
+- [Project Repository](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy)
+- [Project Page](https://cepdnaclk.github.io/e15-4yp-nearIR-spectroscopy/)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
