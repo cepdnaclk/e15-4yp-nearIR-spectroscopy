@@ -217,13 +217,127 @@ A closeup view of the final prototype can be seen in below.
 
 8888888888888888888888888888888888 final prototype 88888888888888888888888888888
 
+### Image processing
+
+Several image processing techniques are utilized to get the vein map as the final output, but they can be broadly categorized into 3 main parts as described in the methodology section. In this section, we will explore how each phase can be explored and implemented in a programming environment.
+
+#### Background removal
+
+This stage removes the background of a particular image and isolates only the region of interest. This is accomplished by considering the HSV (hue, saturation, value) values of the image and thereby create an upper and a lower matrix to form the image free without its background. The values of the two matrices are found by using a track bar that executes in the runtime.
+
+#### Preprocessing
+
+The primary constituents that we consider as preprocessing for our application are contrasting / equalization and smoothening. The sequence in which these techniques are implemented is: contrasting first, then morphological transformation, followed by smoothening. Contrasting is implemented using two widely used techniques - Histogram equalization and CLAHE.
+
+##### Contrasting using Histogram equalization
+
+   	 
+ A histogram is a graphical representation of the intensity distribution of an image. In simple terms, it represents the number of pixels for each intensity value considered. Histogram Equalization is a computer image processing technique used to improve contrast in images. It accomplishes this by effectively spreading out the most frequent intensity values, i.e. stretching out the intensity range of the image. This method usually increases the global contrast of images when its user data is represented by close contrast values. This allows for areas of lower local contrast to gain a higher contrast.
+ 
+##### Contrasting using CLAHE (Contrast Limited Adaptive Histogram Equalization)
+
+CLAHE is an improvement on histogram equalization. It limits the contrast amplification to reduce amplified noise by distributing that part of the histogram that exceeds the clip limit equally across all histograms. In general, there are some features in the near-infrared superficial vein images such as high noise and low contrast. CLAHE comes in handy for a situation where the edges of veins in the image are blurred and the vascular lines are not obvious. We can use the CLAHE algorithm iteratively even though it is not ideal in every situation.
+
+We saw that the image on which CLAHE is done provides more contrast than the equalized image. The veins appear to be highlighted better. The problem is that the veins seem to be a little bit thicker than that in the original image. These are rectified in the latter stages of preprocessing when morphing and smoothening are done.
+
+##### Morphological transformation
+
+Under morphological transformation, we have only used “dilation” and “closing” so far. Additionally, there are few others namely, “closing”, “opening”, and “top-hat gradients”. Opening and closing were used to make the contrasted image from CLAHE appear closer to the original image in terms of the size of the veins. 
+
+Since the CLAHE algorithm appears to thicken the veins, we need to narrow them down. The technique that is proved to be most useful in this case is “dilation”.  The below images show the input (CLAHE image of the vein pattern) to the dilation method and output generated from it. \autoref{fig:Dilation} depicts the comparison of the above approach and for ease of comparison, the same image is used.
+
+##### Smoothening
+
+This is the final stage of image preprocessing. As we saw previously the dilated CLAHE image still contains a small amount of noise and is slightly pixelated. We’ve tried out 3 types of blurring (smoothening) techniques – Gaussian Blur, Median Blur, and Bilateral Filtering.
+We saw that all the operations smoothen the image while maintaining the same level of detail. Also, we observed that bilateral filtering provides the most smoothened image. Therefore, we opted to go for bilateral filtering.
+
+### Algorithm Development
+
+This is the most complicated part of image processing that we have currently encountered. The entire algorithm can be summarized into 8 steps which were stated previously.
+ 	 
+The first 4 steps were discussed under background removal and preprocessing. The next involves a procedure called clustering. It is an Unsupervised Machine Learning technique which we can apply to find new patterns in our data. What's interesting about this algorithm is that we can also use it for image processing tasks as well. In the same manner as with other types of data, we can find pixel patterns in our images that will allow us to process them in a faster and more efficient way. Though there are many clustering methods, we used K-means clustering which is quite straightforward and efficient. How this algorithm works is explained below.
+    
+K-Means is a data clustering algorithm that tries to assign every data point in a data set to exactly one of K possible clusters which is defined according to the users requirement. The main idea here is that the algorithm tries to build the clusters in such way that two data points from the same cluster are as similar as possible, while two data points from two different clusters are as different as possible. The algorithm will iterate through the data set many times and we need to find a proper condition for it to stop.    
+
+An important notion related to Kmeans is the term "centeroid". The centroid of a cluster is the mean value of all the values present in that cluster. The algorithm operates in a way that it makes sure that the sum of squared distance between the data points in a cluster and the centroid of that cluster is minimum. The centroid of the cluster is the mean value of all the values in the cluster. To elaborate even further the algorithm can be broken down into few basic steps. They are as follows.
+
+* Assign the K number of clusters (this can be found using the elbow method) \item Shuffle the data and randomly assign each data point to one of the K clusters and assign initial random centroids.
+* Calculate the squared sum between each data point and all centroids.
+* Reassign each data point to the closest centroid based on the computation for step 3.
+* Reassign the centroid by calculating the mean value for every cluster.
+* Repeat steps 3, 4, 5 until we no longer have to change anything in the clusters.
+
+In our application we use K-means clustering to group the pixels in the image so that more pixels with similar colors are in the same cluster, while pixels with different colors are placed in different clusters. Ultimately since the veins belong to a particular color range, this enables us to separate the pixels that belong to veins as a collection from the rest of the image. We tested the K-means algorithm on the smoothened image using different number of clusters on different images to determine the optimum value. 
+
+We saw that when the number of clusters increase, the image more and more similar to the original image. Since we need to separate the veins from the rest, resorting to small number of clusters seems ideal but it must not be too small because if that is the case, it could end up eliminating part of the veins that are slightly less visible. For example, here we can see a clear distinction between the veins and the rest when the number of clusters = 2. But we see that part of the veins which have low intensity have disappeared since the program interpolates those pixels to the cluster which holds the light coloured pixels. The output when the number of clusters = 5 provides a good balance and seems to be the best result. 
+
+In the sixth step, we perform edge detection on the clustered image to obtain the edges of the vein patterns in the segmented image. Open CV offers several edge detection methods such as laplacian gradient, Sobel combined, and Canny edge detection. Laplacian gradient method proved to be ineffective as it showed no visible edges of veins but only managed to show the edge along with the hand (outline of the hand). Sobel combined method was able to separate the veins but also showed a lot of unwanted detail in the process. Canny edge detection was satisfactory as well. But it wasn’t capable of showing all the edges of the visible vein pattern but was able to provide a portion of it.
+
+The next step of the algorithms uses thresholding. In conventional binary thresholding, each pixel of the image is considered and based on a threshold value the color of the pixel is converted to either black or white. When considering the colors of the pixel, the RGB values are the key aspects. In a grayscale image, the RGB values are scaled down to one particular value, so the thresholding algorithm checks that value with the threshold and based on that decide which to color to assign. For example, if the threshold is 127, then every pixel that has the value below 127 is converted to black, and the rest become white.
+
+But this approach didn’t yield good results, and therefore we had to resort to a more refined method of thresholding named adaptive thresholding.  Here instead of one global threshold value, the function splits the image into segments of equal size, and each segment assigns a threshold value depending on the pixel color values which belong to that particular segment. 
+
+The final step is the coloring process. The processed image shows the vein patterns in black whereas the surrounding features are shown in white. This makes it possible to color only the veins by changing the RGB values of the pixels that are colored in black. After the colored image has been obtained it is then overlayed on top of the original image to form the final output. 
+This algorithm works on a satisfactory level, but for some captured images the results were not as good. Therefore, we are working on how to improve the algorithm, what changes we need to make, how to optimize in terms of computational speed, and to increase the overall accuracy for any type of image that includes vein patterns.
+
+### Algorithm optimization using multi-threading
+
+Multiple threads are used for parallel processing of the frame. The raspberry pi has 4 cores, and so we created 3 separate threads which are executed in parallel. The parent thread captures a frame, and displays the final output in the user interface. The 3 threads process 3 individual frame segments allowing them to be processed simultaneously without any dependency. The parent process splits the captured frame into 3 segments and feeds them so that each thread has only 1 segment to process at a given instance. Then the parent thread waits for all 3 threads to return their respective frames which have undergone the processing steps specified by the algorithm. Once all the threads have returned, the parent process continues from where it had paused. The frames are joined together in their original order to compose the output frame which is displayed in the user interface. An important thing to note is that all of this (from capturing a frame, dissecting it to segments, processing each segment in each thread, returning them to main thread for display) takes place real time. With this approach the latency that was present earlier without threads, is substantially reduced even when there is a lot of movement.    
+
+### Interface design
+
+After designing the algorithm the next step is to actually create a user interface to display the processed output to the user on a real time basis. This is still in a development stage, but the process occurs according to two phases.
+
+* Designing the interface to display still images.
+* Enable to interface to display a processed live stream.
+
+#### Designing the interface to display still images
+
+Initially the GUI was designed to be able to show still images while providing few other features like rotation, zooming, transition from base image to processed image and then to the colored image, as well as full screen viewing. The python tkinter package along with openCV is used to create the widgets and the overall functionality of the graphical user interface. 
+
+#### Configuring the interface to display a processed live stream
+
+This is the most significant phase of the GUI. We were able to get a live stream up on the GUI and displaying the processed stream with the use of multi-threading. The latency issues which we faced previously were resolved and we are able to produce a processed live stream that is crisp and clear. The veins are displayed vividly and the contrast difference and the smoothness enables the user to identify the veins precisely.
+
+
 ## Results and Analysis
+
+### Testing the light intensities
+
+As mentioned before we used 2 separate NIR LED arrays corresponding to two intensities(18W and 60W) as the light sources and obtained their outputs. 
+The output obtained from the 18 watts source is quite accurate at visualizing the veins even managing to show very thin subcutaneous veins. The contrast is high and the image is smooth as well. We've obtained a lot of images using this lighting source and most of them were able to display clearly visible vein patterns. When looking at the output of the 60 watts LED source we can observe the vein patterns up to some extent. But the very thin veins are barely visible. Also the image has a glare which is caused by the light reflecting from the tissue. 
+This was the case for most of the images that we took. The output from the 18 watts LEDs gave the better results in terms of accuracy, contrast and clarity. 
+
+If the subject has a lot of body fat then the light emitted from the 18 watts source may not be able to penetrate through the subcutaneous fat and reach the underlying veins. This may cause veins in some regions to not be visible in the captured image. We hoped that the 60 watts light source would provide sufficient penetration in order pass through the layer of fat within the Hypodermis and resolve this issue. But the results were not as we expected. Even though the intensity is high, it was not enough to penetrate the tissue and the fat probably due to a large portion of the light being deflected from the epidermis and dermis. Thus we observed that having a higher intensity does not guarantee better results. In fact between the 2 sources, the 18 watts light source proved to be the better one. For further analysis lets take a look at the histograms generated for the processed images corresponding to each intensity.
+
+#### Testing the algorithm
+
+We tested several sample images that were captured by the prototype we built, with the algorithm that we developed and got their outputs.
+Shown below are sets of images pertaining to different regions of the hand. Each figure illustrates the outputs of each step in the algorithm starting from the raw base image to the final processed image.
+
+88888888888888888888888888888888888888888888images results 888888888888888888888888888888888888888
+
+
+Looking at each set we can see that the final image highlights the veins which are not so clearly visible in the raw image. An issue that can be noted here is background elimination. For some images, the background is properly eliminated, but for some, the entire background is not eliminated. Also in the final image, we see some dark spots which are not veins. This is due to the contrasting effect and noise created by the CLAHE algorithm. Also, the algorithm falls short when detecting narrow veins but only gives a good depiction of the larger and more prominent veins.
+
+Histogram analysis is a good method of identifying how the colors of an image are distributed based on their RGB values. We want the distribution to have concentrated clusters rather than a even distribution which makes is difficult to differentiate between colors. 
+
+The most recent addition to the image processing algorithm is K-means clustering, which was discussed in length in the previous chapter. In this case, the number of peaks in the histogram indicates the number different clusters. Therefore, all of the pixels fall under one of the peaks which means all the pixels pertaining to veins fall under one peak/cluster. 
+
+When the number of clusters = 2, we can assume from the histogram that the pixels that form veins fall under the lower cluster () whereas the rest fall into the upper cluster. While this is convenient it doesn't give the best result as some of lightly colored veins end up in the upper cluster and so some of the veins will not be present in the final image. When the number of clusters are high (8, 10), the image becomes too detailed, with many contrasting colors and if we look closely at the histograms the peaks located quite close to one another. This creates the issue of multiple clusters having similar colors. This is not ideal as we need the cluster which contains pixels of the veins to be separated from the rest. The ideal situation is when one cluster (to which the veins belong) is further as possible from the rest and the number of clusters need to be moderate. Hence we came to the conclusion that the amount of clusters to use for a given image, is a number between 4 to 6.
+
+#### Performance testing after multi-threading
+
+As mentioned under implementation the addition of multiple threads to achieve parallel processing of a frame increases the performance of the algorithm significantly. To explain the improvement we've obtained the processing times of frames in both (single threaded and multi threaded) implementations. 
+There is a clear difference between the processing times of the two methods. Based on these values, the mean processing time for a frame while using multiple threads is around 27ms (37FPS) having a clear margin over the mean time of the basic implementation which is around 130ms (8FPS). It is apparent that the multi-threaded application is almost 5 times faster that the basic one. This made a huge difference in the overall delivery of the output and enhanced the performance of the algorithm substantially. If the number of cores in the microprocessor had been larger, then the results would be even greater. 
 
 ## Conclusion and Future Work
 As of now, we have managed to create a prototype for image capturing, perform preprocessing on the image, and finally construct an algorithm to obtain an output that shows
 the vein patterns. Shortly, we expect to improve the algorithm to provide a clearer and more accurate depiction of the vein map. Considering the hardware implementation, we
 have developed a prototype by embedding the camera module, near-infrared light sources, single-board computer, and the display screen. The device is ready for testing and we
 will start the evaluation shortly. Further improving the algorithms and fine-tuning the device will also be done during the project.
+
+
 
 ## Publications
 1. [Semester 7 report](./)
