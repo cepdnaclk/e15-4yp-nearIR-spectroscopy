@@ -173,7 +173,7 @@ The prototype is designed so as the height of the camera and light sources are m
 The light sources can be turned on either individually or as a combination during the image acquiring procedure. Following figure displays the actual prototype with 2 IR light sources namely 940 nm and 850 nm. The images were taken using an IR sensitive camera to see the observe the functionality of IR sources.
 
 
--------- Initial prototype -----------------------
+https://user-images.githubusercontent.com/62101605/115156034-1441cc00-a0a0-11eb-9768-5ec665f267ee.png
 
 #### Second prototype to detect and display veins
 
@@ -197,7 +197,7 @@ The final prototype was implemented with suggestions from the medical personnel 
 
 Following figure shows an overall view of the final prototype including the image capturing module and display module.
 
------------------------- final prototype photo ---------------------------------
+https://user-images.githubusercontent.com/62101605/115156039-1572f900-a0a0-11eb-9f55-7ae204d60220.jpg
 
 The final prototype consists of the following components and an updated IR source with higher intensity. 
 
@@ -312,8 +312,7 @@ If the subject has a lot of body fat then the light emitted from the 18 watts so
 We tested several sample images that were captured by the prototype we built, with the algorithm that we developed and got their outputs.
 Shown below are sets of images pertaining to different regions of the hand. Each figure illustrates the outputs of each step in the algorithm starting from the raw base image to the final processed image.
 
-88888888888888888888888888888888888888888888images results 888888888888888888888888888888888888888
-
+https://user-images.githubusercontent.com/62101605/115156038-14da6280-a0a0-11eb-84d0-f5c03b93e496.PNG
 
 Looking at each set we can see that the final image highlights the veins which are not so clearly visible in the raw image. An issue that can be noted here is background elimination. For some images, the background is properly eliminated, but for some, the entire background is not eliminated. Also in the final image, we see some dark spots which are not veins. This is due to the contrasting effect and noise created by the CLAHE algorithm. Also, the algorithm falls short when detecting narrow veins but only gives a good depiction of the larger and more prominent veins.
 
