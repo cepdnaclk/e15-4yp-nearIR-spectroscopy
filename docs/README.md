@@ -244,7 +244,7 @@ We saw that the image on which CLAHE is done provides more contrast than the equ
 
 Under morphological transformation, we have only used “dilation” and “closing” so far. Additionally, there are few others namely, “closing”, “opening”, and “top-hat gradients”. Opening and closing were used to make the contrasted image from CLAHE appear closer to the original image in terms of the size of the veins. 
 
-Since the CLAHE algorithm appears to thicken the veins, we need to narrow them down. The technique that is proved to be most useful in this case is “dilation”.  The below images show the input (CLAHE image of the vein pattern) to the dilation method and output generated from it. \autoref{fig:Dilation} depicts the comparison of the above approach and for ease of comparison, the same image is used.
+Since the CLAHE algorithm appears to thicken the veins, we need to narrow them down. The technique that is proved to be most useful in this case is “dilation”.  The below images show the input (CLAHE image of the vein pattern) to the dilation method and output generated from it. 
 
 ##### Smoothening
 
