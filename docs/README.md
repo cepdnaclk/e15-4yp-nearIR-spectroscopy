@@ -332,10 +332,11 @@ As mentioned under implementation the addition of multiple threads to achieve pa
 There is a clear difference between the processing times of the two methods. Based on these values, the mean processing time for a frame while using multiple threads is around 27ms (37FPS) having a clear margin over the mean time of the basic implementation which is around 130ms (8FPS). It is apparent that the multi-threaded application is almost 5 times faster that the basic one. This made a huge difference in the overall delivery of the output and enhanced the performance of the algorithm substantially. If the number of cores in the microprocessor had been larger, then the results would be even greater. 
 
 ## Conclusion and Future Work
-As of now, we have managed to create a prototype for image capturing, perform preprocessing on the image, and finally construct an algorithm to obtain an output that shows
-the vein patterns. Shortly, we expect to improve the algorithm to provide a clearer and more accurate depiction of the vein map. Considering the hardware implementation, we
-have developed a prototype by embedding the camera module, near-infrared light sources, single-board computer, and the display screen. The device is ready for testing and we
-will start the evaluation shortly. Further improving the algorithms and fine-tuning the device will also be done during the project.
+We have created a prototype for image capturing and perform preprocessing on the image.We have constructed an algorithm to obtain an output that shows the vein patterns and have optimized the algorithm to provide a clearer and more accurate depiction of the vein map. Considering the hardware implementation, we have developed a prototype by embedding the camera module, near-infrared light sources, single-board computer, and the display screen. The device is ready for clinical testing that unfortunately could not be completed due to the Ethical clearance process that took longer than expected given the pandemic situation of the country. 
+
+In the future, when the external parties permit, we plan to carry out the planned clinical testing and evaluation and thereby further improve the algorithms and fine-tune the device according to the feedback we get.
+
+We also will extend the research further, to identify Peripheral Vascular Diseases (PVD) based on the data collected through clinical trials, in the future.
 
 
 
