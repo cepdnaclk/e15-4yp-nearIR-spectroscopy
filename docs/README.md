@@ -212,7 +212,7 @@ The IR source consists of 96 LEDs emitting infrared light at 850 nm with a total
 
 A closeup view of the final prototype can be seen in below.
 
----------------------------- final prototype closeup ---------------------------
+https://user-images.githubusercontent.com/62101605/115156031-11df7200-a0a0-11eb-8d1c-3cc14c95c17b.jpg
 
 ### Image processing
 
