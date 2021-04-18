@@ -143,9 +143,6 @@ The goals of the build were as follows:
 * item Low cost and convenience to calibrate.
 
 The initial prototype for the spectrometer was designed using CAD software with the required dimensions and built by using 3D printed parts and was designed using CAD software.
-Below are images that show the design of the spectrometer prototype
-
-********8**********************************************************************************
 
 #### Initial prototype for the spectrometer
 
@@ -176,7 +173,7 @@ The prototype is designed so as the height of the camera and light sources are m
 The light sources can be turned on either individually or as a combination during the image acquiring procedure. Following figure displays the actual prototype with 2 IR light sources namely 940 nm and 850 nm. The images were taken using an IR sensitive camera to see the observe the functionality of IR sources.
 
 
-********************************************1st prototype photo *************************************8
+-------- Initial prototype -----------------------
 
 #### Second prototype to detect and display veins
 
@@ -200,7 +197,7 @@ The final prototype was implemented with suggestions from the medical personnel 
 
 Following figure shows an overall view of the final prototype including the image capturing module and display module.
 
-**************************8final prototype photo ***************************************************************
+------------------------ final prototype photo ---------------------------------
 
 The final prototype consists of the following components and an updated IR source with higher intensity. 
 
@@ -215,7 +212,7 @@ The IR source consists of 96 LEDs emitting infrared light at 850 nm with a total
 
 A closeup view of the final prototype can be seen in below.
 
-8888888888888888888888888888888888 final prototype 88888888888888888888888888888
+---------------------------- final prototype closeup ---------------------------
 
 ### Image processing
 
