@@ -160,7 +160,7 @@ To analyze the light, we used a Logitech C270 image sensor (Web Camera) with its
 After calibrating the spectrometer, we analyzed our two IR sources in a controlled environment to avoid unnecessary light entering the spectrometer. The first source used was had a wavelength of 950 nm. The analyzed result gave us a reading of 945 nm and it was satisfactory.
 The second source had a nominal wavelength of 850 nm and it was read as 840 nm. This was also acceptable since these light sources were not high-quality ones.
 
-##### Initial prototype to capture images
+#### Initial prototype to capture images
 
 The prototype was designed to be composed of the following components.
 
