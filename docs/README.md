@@ -419,7 +419,9 @@ As mentioned under implementation the addition of multiple threads to achieve pa
 
 There is a clear difference between the processing times of the two methods. Based on these values, the mean processing time for a frame while using multiple threads is around 27ms (37FPS) having a clear margin over the mean time of the basic implementation which is around 130ms (8FPS). It is apparent that the multi-threaded application is almost 5 times faster that the basic one. This made a huge difference in the overall delivery of the output and enhanced the performance of the algorithm substantially. If the number of cores in the microprocessor had been larger, then the results would be even greater. 
 
-*Video demonstration can be seen below.
+### Video demonstration can be seen below.
+
+
 [![](http://img.youtube.com/vi/KDr9Cov6zjQ/0.jpg)](http://www.youtube.com/watch?v=KDr9Cov6zjQ)
 
 
