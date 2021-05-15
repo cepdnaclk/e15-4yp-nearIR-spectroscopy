@@ -213,7 +213,7 @@ The final prototype was implemented with suggestions from the medical personnel 
 
 Following figure shows an overall view of the final prototype including the image capturing module and display module.
 
-https://user-images.githubusercontent.com/62101605/115156039-1572f900-a0a0-11eb-9f55-7ae204d60220.jpg
+![](https://user-images.githubusercontent.com/62101605/115156039-1572f900-a0a0-11eb-9f55-7ae204d60220.jpg)
 
 The final prototype consists of the following components and an updated IR source with higher intensity. 
 
@@ -228,9 +228,9 @@ The IR source consists of 96 LEDs emitting infrared light at 850 nm with a total
 
 Thefinal prototype can be seen in the pictures below.
 
-https://user-images.githubusercontent.com/62101605/115156031-11df7200-a0a0-11eb-8d1c-3cc14c95c17b.jpg
+![](https://user-images.githubusercontent.com/62101605/115156031-11df7200-a0a0-11eb-8d1c-3cc14c95c17b.jpg)
 
----- 7. closeup final ---
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/7.%20final%20prototype%20closeup.jpg)
 
 ### Image processing
 
@@ -241,11 +241,13 @@ Several image processing techniques are utilized to get the vein map as the fina
 This stage removes the background of a particular image and isolates only the region of interest. This is accomplished by considering the HSV (hue, saturation, value) values of the image and thereby create an upper and a lower matrix to form the image free without its background. The values of the two matrices are found by using a track bar that executes in the runtime. 
 Original image with the track bar is shown below.
 
---- 8. original image ---
+
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/8.%20background_elimination_trackbar.png)
 
 Image after background elimination is as follows ---
 
----9. after background elimination ----
+
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/9.%20no_background.png)
 
 
 #### Preprocessing
@@ -257,19 +259,22 @@ The primary constituents that we consider as preprocessing for our application a
    	 
  A histogram is a graphical representation of the intensity distribution of an image. In simple terms, it represents the number of pixels for each intensity value considered. Histogram Equalization is a computer image processing technique used to improve contrast in images. It accomplishes this by effectively spreading out the most frequent intensity values, i.e. stretching out the intensity range of the image. This method usually increases the global contrast of images when its user data is represented by close contrast values. This allows for areas of lower local contrast to gain a higher contrast. Following image shows the equalized image compared with the original image.
  
- ---10. Histogram equalization ----
+
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/10.%20histogram_equalization.png)
+
  
 We can observe that the vein pattern of the hand is enhanced in the second image. If
 we plot a histogram for each of the images the outputs would be as follows.
 
---11.  Comparison of Histogram before and after equalization ---
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/11%20hist1.PNG)
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/11%20hist2.PNG)
 
  
 ##### Contrasting using CLAHE (Contrast Limited Adaptive Histogram Equalization)
 
 CLAHE is an improvement on histogram equalization. It limits the contrast amplification to reduce amplified noise by distributing that part of the histogram that exceeds the clip limit equally across all histograms. In general, there are some features in the near-infrared superficial vein images such as high noise and low contrast. CLAHE comes in handy for a situation where the edges of veins in the image are blurred and the vascular lines are not obvious. We can use the CLAHE algorithm iteratively even though it is not ideal in every situation.
 
---12. Comparison of before and after CLAHE ----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/12.%20clahe_img.png)
 
 We can see that the image on which CLAHE is done provides more contrast than the equalized image. The veins appear to be highlighted better. The problem is that the veins seem to be a little bit thicker than that in the original image. These are rectified in the latter stages of preprocessing when morphing and smoothening are done.
 
@@ -279,14 +284,14 @@ Under morphological transformation, we have only used “dilation” and “clos
 
 Since the CLAHE algorithm appears to thicken the veins, we need to narrow them down. The technique that is proved to be most useful in this case is “dilation”.  The below images show the input (CLAHE image of the vein pattern) to the dilation method and output generated from it. Following figure depicts the comparison of the above approach and for ease of comparison, the same image is used.
 
---- 13.  Comparison between CLAHE and CLAHE with dilation ----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/13.%20clahe%20and%20dilation.PNG)
 
 ##### Smoothening
 
 This is the final stage of image preprocessing. As we saw previously the dilated CLAHE image still contains a small amount of noise and is slightly pixelated. We’ve tried out 3 types of blurring (smoothening) techniques – Gaussian Blur, Median Blur, and Bilateral Filtering.
 We saw that all the operations smoothen the image while maintaining the same level of detail. Also, we observed that bilateral filtering provides the most smoothened image. Therefore, we opted to go for bilateral filtering. Following figure depicts the comparison of these blurring techniques along with the dilated CLAHE image.
 
---14. Different approaches for smoothening the image ----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/14.%20smoothening1.PNG)
 
 We can see that all the operations smoothen the image while maintaining the same
 level of detail. Also, we see that bilateral filtering provides the most smoothened image.
@@ -311,23 +316,23 @@ An important notion related to Kmeans is the term "centeroid". The centroid of a
 
 In our application we use K-means clustering to group the pixels in the image so that more pixels with similar colors are in the same cluster, while pixels with different colors are placed in different clusters. Ultimately since the veins belong to a particular color range, this enables us to separate the pixels that belong to veins as a collection from the rest of the image. We tested the K-means algorithm on the smoothened image using different number of clusters on different images to determine the optimum value. The results are shown below in the figure.
 
----15. Output of K-means for different number of clusters -----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/15.%20clustered_imgs.PNG)
 
 We saw that when the number of clusters increase, the image more and more similar to the original image. Since we need to separate the veins from the rest, resorting to small number of clusters seems ideal but it must not be too small because if that is the case, it could end up eliminating part of the veins that are slightly less visible. For example, here we can see a clear distinction between the veins and the rest when the number of clusters = 2. But we see that part of the veins which have low intensity have disappeared since the program interpolates those pixels to the cluster which holds the light coloured pixels. The output when the number of clusters = 5 provides a good balance and seems to be the best result. 
 
 In the sixth step, we perform edge detection on the clustered image to obtain the edges of the vein patterns in the segmented image. Open CV offers several edge detection methods such as laplacian gradient, Sobel combined, and Canny edge detection. Laplacian gradient method proved to be ineffective as it showed no visible edges of veins but only managed to show the edge along with the hand (outline of the hand). Sobel combined method was able to separate the veins but also showed a lot of unwanted detail in the process. Canny edge detection was satisfactory as well. But it wasn’t capable of showing all the edges of the visible vein pattern but was able to provide a portion of it. The following figure depicts the comparison between the smoothened image, Sobel combined, and Canny edge detection.
 
---16. Different approaches for Edge Detection ---
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/16.%20edge_detection.PNG)
 
 The next step of the algorithms uses thresholding. In conventional binary thresholding, each pixel of the image is considered and based on a threshold value the color of the pixel is converted to either black or white. When considering the colors of the pixel, the RGB values are the key aspects. In a grayscale image, the RGB values are scaled down to one particular value, so the thresholding algorithm checks that value with the threshold and based on that decide which to color to assign. For example, if the threshold is 127, then every pixel that has the value below 127 is converted to black, and the rest become white.
 
 But this approach didn’t yield good results, and therefore we had to resort to a more refined method of thresholding named adaptive thresholding.  Here instead of one global threshold value, the function splits the image into segments of equal size, and each segment assigns a threshold value depending on the pixel color values which belong to that particular segment. This provides much better results as shown in the figure below.
 
----17. Different Thresholding approaches ---
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/17.%20Thresholding.PNG)
 
 The final step is the coloring process. The processed image shows the vein patterns in black whereas the surrounding features are shown in white. This makes it possible to color only the veins by changing the RGB values of the pixels that are colored in black. After the colored image has been obtained it is then overlayed on top of the original image to form the final output as shown below.
 
----18. Final image after coloring ---- 
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/18.%20image_coloring.PNG)
 
 This algorithm works on a satisfactory level, but for some captured images the results were not as good. Therefore, we are working on how to improve the algorithm, what changes we need to make, how to optimize in terms of computational speed, and to increase the overall accuracy for any type of image that includes vein patterns.
 
@@ -346,7 +351,7 @@ After designing the algorithm the next step is to actually create a user interfa
 
 Initially the GUI was designed to be able to show still images while providing few other features like rotation, zooming, transition from base image to processed image and then to the colored image, as well as full screen viewing.  These features are shown in the figure below. 
 
----19.  The GUI and its features ----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/19.%20gui.PNG)
 
 The python tkinter package along with openCV is used to create the widgets and the overall functionality of the graphical user interface. 
 
@@ -363,15 +368,16 @@ As mentioned before we used 2 separate NIR LED arrays corresponding to two inten
 from each light source are shown in the figures below.
 
 
--- 20. Output of 18 watts NIR LED source ---
--- 21. Output of 60 watts NIR LED source ---
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/20.%20testing_1.PNG)
+
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/21.%20testing_2.PNG)
 
 The output obtained from the 18 watts source is quite accurate at visualizing the veins even managing to show very thin subcutaneous veins. The contrast is high and the image is smooth as well. We've obtained a lot of images using this lighting source and most of them were able to display clearly visible vein patterns. When looking at the output of the 60 watts LED source we can observe the vein patterns up to some extent. But the very thin veins are barely visible. Also the image has a glare which is caused by the light reflecting from the tissue. 
 This was the case for most of the images that we took. The output from the 18 watts LEDs gave the better results in terms of accuracy, contrast and clarity. 
 
 If the subject has a lot of body fat then the light emitted from the 18 watts source may not be able to penetrate through the subcutaneous fat and reach the underlying veins. This may cause veins in some regions to not be visible in the captured image. We hoped that the 60 watts light source would provide sufficient penetration in order pass through the layer of fat within the Hypodermis and resolve this issue. But the results were not as we expected. Even though the intensity is high, it was not enough to penetrate the tissue and the fat probably due to a large portion of the light being deflected from the epidermis and dermis. Thus we observed that having a higher intensity does not guarantee better results. In fact between the 2 sources, the 18 watts light source proved to be the better one. For further analysis lets take a look at the histograms generated for the processed images corresponding to each intensity.
 
---- 22. Histograms for the output images of 2 intensities ---
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/22.%20hist_18_60.PNG)
 
 The above figure shows the differences between the two outputs. The histogram of the low
 intensity output is uniformly distributed unlike the histogram of the high intensity output.
@@ -382,20 +388,20 @@ compare the two intensities even further, we’ve taken set of images and took t
 of the clearly visible veins for a set of images obtained using both intensities. The results
 are shown in the figure below.
 
--- 23. Comparison of the no of veins between the 2 intensities -----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/23.%20comparison_hist.PNG)
 
 #### Testing the algorithm
 
 We tested several sample images that were captured by the prototype we built, with the algorithm that we developed and got their outputs.
 Shown below are sets of images pertaining to different regions of the hand. Each figure illustrates the outputs of each step in the algorithm starting from the raw base image to the final processed image.
 
-https://user-images.githubusercontent.com/62101605/115156038-14da6280-a0a0-11eb-84d0-f5c03b93e496.PNG
+![](https://user-images.githubusercontent.com/62101605/115156038-14da6280-a0a0-11eb-84d0-f5c03b93e496.PNG)
 
 Looking at each set we can see that the final image highlights the veins which are not so clearly visible in the raw image. An issue that can be noted here is background elimination. For some images, the background is properly eliminated, but for some, the entire background is not eliminated. Also in the final image, we see some dark spots which are not veins. This is due to the contrasting effect and noise created by the CLAHE algorithm. Also, the algorithm falls short when detecting narrow veins but only gives a good depiction of the larger and more prominent veins.
 
 Histogram analysis is a good method of identifying how the colors of an image are distributed based on their RGB values. We want the distribution to have concentrated clusters rather than a even distribution which makes is difficult to differentiate between colors. The following figure shows the histograms throughout each processing stage of the base image.
 
---- 24. Histograms for each stage of the algorithm ----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/24.%20histograms_1.PNG)
 
 
 The most recent addition to the image processing algorithm is K-means clustering, which was discussed in length in the previous chapter. In this case, the number of peaks in the histogram indicates the number different clusters. Therefore, all of the pixels fall under one of the peaks which means all the pixels pertaining to veins fall under one peak/cluster. 
@@ -406,7 +412,7 @@ When the number of clusters = 2, we can assume from the histogram that the pixel
 
 As mentioned under implementation the addition of multiple threads to achieve parallel processing of a frame increases the performance of the algorithm significantly. To explain the improvement we've obtained the processing times of frames in both (single threaded and multi threaded) implementations.
 
---- 25.  Processing time for frames with threading and without threading ----
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/25.%20Threading%20results.PNG)
 
 There is a clear difference between the processing times of the two methods. Based on these values, the mean processing time for a frame while using multiple threads is around 27ms (37FPS) having a clear margin over the mean time of the basic implementation which is around 130ms (8FPS). It is apparent that the multi-threaded application is almost 5 times faster that the basic one. This made a huge difference in the overall delivery of the output and enhanced the performance of the algorithm substantially. If the number of cores in the microprocessor had been larger, then the results would be even greater. 
 
