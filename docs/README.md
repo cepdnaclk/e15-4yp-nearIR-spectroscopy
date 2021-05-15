@@ -439,6 +439,7 @@ We also will extend the research further, to identify Peripheral Vascular Diseas
 
 - [Project Repository](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy)
 - [Project Page](https://cepdnaclk.github.io/e15-4yp-nearIR-spectroscopy/)
+- [Demo Video](https://www.youtube.com/watch?v=KDr9Cov6zjQ)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
