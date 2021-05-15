@@ -35,6 +35,9 @@ title: NearIR Spectroscopy
 
 ---
 
+
+
+
 ## Abstract
 Near-Infrared spectroscopy is used for better vein visualization to make the venipuncture process more efficient. While there exist a few models which use the said mechanism, these models are costly, have accuracy issues, and are limited only to certain types of skin tones. Some of the available devices use image-guided venipuncture technique and the others use projection.
 We propose a low-cost mechanism of obtaining near-infrared spectroscopy by using the image-guided technique. We decided on using this technique after assessing both the available techniques. The low-cost is achieved by optimizing the image processing algorithms and adjusting the illumination method. We have tested and optimized the algorithms accordingly.
@@ -415,6 +418,10 @@ As mentioned under implementation the addition of multiple threads to achieve pa
 ![](https://cepdnaclk.github.io/e15-4yp-nearIR-spectroscopy/images/25.%20Threading%20results.PNG)
 
 There is a clear difference between the processing times of the two methods. Based on these values, the mean processing time for a frame while using multiple threads is around 27ms (37FPS) having a clear margin over the mean time of the basic implementation which is around 130ms (8FPS). It is apparent that the multi-threaded application is almost 5 times faster that the basic one. This made a huge difference in the overall delivery of the output and enhanced the performance of the algorithm substantially. If the number of cores in the microprocessor had been larger, then the results would be even greater. 
+
+*Video demonstration can be seen below.
+[![](http://img.youtube.com/vi/KDr9Cov6zjQ/0.jpg)](http://www.youtube.com/watch?v=KDr9Cov6zjQ)
+
 
 ## Conclusion and Future Work
 We have created a prototype for image capturing and perform preprocessing on the image.We have constructed an algorithm to obtain an output that shows the vein patterns and have optimized the algorithm to provide a clearer and more accurate depiction of the vein map. Considering the hardware implementation, we have developed a prototype by embedding the camera module, near-infrared light sources, single-board computer, and the display screen. The device is ready for clinical testing that unfortunately could not be completed due to the Ethical clearance process that took longer than expected given the pandemic situation of the country. 
