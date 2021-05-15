@@ -146,7 +146,9 @@ The initial prototype for the spectrometer was designed using CAD software with 
 
 #### Initial prototype for the spectrometer
 
-![](images/1. spectrometer_1.png)
+![](/images/1. spectrometer_1.png)
+
+
 ---2. model overview ---
 
 
