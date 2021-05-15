@@ -149,7 +149,9 @@ The initial prototype for the spectrometer was designed using CAD software with 
 ![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/1.%20spectrometer_1.png)
 
 
----2. model overview ---
+The modal overview is as follows.
+
+![Spectrometer modal overview](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/1.%20spectrometer_2.png)
 
 
 The key optical principle in a spectrometer is diffraction. The slit was constructed with thin sheets of aluminum with sharpened edges. This allows a very limited amount of light to the sensor as a large amount can overwhelm the sensor and lead to inaccurate readings. To collimate the light, a biconvex lens was kept at its focal length away from the slit. This will ensure the light will enter the diffraction grating in a parallel manner. The diffraction grating is really important in this setup. Initially, we were not able to get ahold of quality diffraction grating. So we carefully removed the diffraction material in the DVD disk and used it in our first attempt.
@@ -197,9 +199,13 @@ image processing is done on a single board computer raspberry pi 3b which has a 
 We use a 7 inch IPS LCD panel with a resolution of 1024x600 for the display of veins. It is powered by a set of li-ion cells with a capacity of 37Wh.
 Following figures give few different views of the second prototype.
 
-----4. top view ----
-----5. components, circuit---
-----6. --- side view ---
+![Top view of the prototype](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/4.%20screenface.jpg)
+
+
+![Interior components of the device](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/5.%202wiring.jpg)
+
+
+![Side view of the prototype](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/6.%20camface.jpg)
 
 #### Final prototype
 
