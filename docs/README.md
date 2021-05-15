@@ -146,7 +146,7 @@ The initial prototype for the spectrometer was designed using CAD software with 
 
 #### Initial prototype for the spectrometer
 
-![](/images/1. spectrometer_1.png)
+![](https://github.com/cepdnaclk/e15-4yp-nearIR-spectroscopy/blob/main/docs/images/1.%20spectrometer_1.png)
 
 
 ---2. model overview ---
